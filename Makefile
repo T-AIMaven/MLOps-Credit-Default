@@ -17,6 +17,7 @@ ruff: ## Run Ruff linter separately
 test: ## Run tests seprately
 	pytest
 
+
 clean: ## Clean up generated files
 	rm -rf __pycache__
 
