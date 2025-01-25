@@ -1,0 +1,7 @@
+* text=auto
+*.py text
+*.ipynb eol=lf
+*.ipynb linguist-language=Jupyter Notebook
+*.ipynb linguist-documentation
+*.pyc linguist-generated
+__pycache__/ linguist-generated

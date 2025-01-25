@@ -1,0 +1,114 @@
+catalog_name: credit
+schema_name: default
+pipeline_id: 4be66e88-11e8-4988-9fa3-459b9b28a83c # Pipeline Id under "features_balanced_online" table in catalog. Created in model_serving_feat_lookup_notebook.py
+
+
+parameters:
+  learning_rate: 0.05
+  random_state: 42
+  force_col_wise: true
+
+ab_test:
+  learning_rate_a: 0.05
+  learning_rate_b: 0.1
+  force_col_wise: true
+
+num_features:
+  - name: ID
+    dtype: int64
+  - name: LIMIT_BAL
+    dtype: float64
+  - name: SEX
+    dtype: int64
+  - name: EDUCATION
+    dtype: int64
+  - name: MARRIAGE
+    dtype: int64
+  - name: AGE
+    dtype: int64
+  - name: PAY_0
+    dtype: int64
+  - name: PAY_2
+    dtype: int64
+  - name: PAY_3
+    dtype: int64
+  - name: PAY_4
+    dtype: int64
+  - name: PAY_5
+    dtype: int64
+  - name: PAY_6
+    dtype: int64
+  - name: BILL_AMT1
+    dtype: float64
+  - name: BILL_AMT2
+    dtype: float64
+  - name: BILL_AMT3
+    dtype: float64
+  - name: BILL_AMT4
+    dtype: float64
+  - name: BILL_AMT5
+    dtype: float64
+  - name: BILL_AMT6
+    dtype: float64
+  - name: PAY_AMT1
+    dtype: float64
+  - name: PAY_AMT2
+    dtype: float64
+  - name: PAY_AMT3
+    dtype: float64
+  - name: PAY_AMT4
+    dtype: float64
+  - name: PAY_AMT5
+    dtype: float64
+  - name: PAY_AMT6
+    dtype: float64
+
+
+target:
+  - name: default.payment.next.month
+    dtype: int64
+    new_name: Default
+
+features:
+  # Clean Column Names
+  clean:
+    - Id
+    - Limit_bal
+    - Sex
+    - Education
+    - Marriage
+    - Age
+    - Pay_0
+    - Pay_2
+    - Pay_3
+    - Pay_4
+    - Pay_5
+    - Pay_6
+    - Bill_amt1
+    - Bill_amt2
+    - Bill_amt3
+    - Bill_amt4
+    - Bill_amt5
+    - Bill_amt6
+    - Pay_amt1
+    - Pay_amt2
+    - Pay_amt3
+    - Pay_amt4
+    - Pay_amt5
+    - Pay_amt6
+
+  # Scaling Features
+  robust:
+    - Limit_bal
+    - Bill_amt1
+    - Bill_amt2
+    - Bill_amt3
+    - Bill_amt4
+    - Bill_amt5
+    - Bill_amt6
+    - Pay_amt1
+    - Pay_amt2
+    - Pay_amt3
+    - Pay_amt4
+    - Pay_amt5
+    - Pay_amt6

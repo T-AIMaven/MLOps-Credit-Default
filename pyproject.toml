@@ -1,0 +1,66 @@
+[project]
+name = "credit-default-databricks"
+version = "0.0.11"                                               # New version
+description = "MLOps Project with Databricks: Credit Default Dataset"
+keywords = ["MLOps", "Databricks", "Machine Learning"]
+authors = [{ name = ""}]
+readme = "README.md"
+requires-python = ">=3.11,<3.12"                               # Imrpoved defined Python (v 0.0.7)
+dependencies = ["lightgbm>=4.5.0, <5",
+                "scikit-learn>=1.5.1, <2",
+                "cloudpickle>=3.0.0, <4",
+                "mlflow==2.17.2",                              # Fixed version (v 0.0.10)
+                "numpy>=1.26.4, <2",
+                "pandas>=2.2.2, <3",
+                "pyarrow>=14.0.0, <15",                        # Change version from 15.0.2 (v 0.0.9) due to databricks-feature-lookup 1.2.0 depends on pyarrow==14.*
+                "cffi>=1.17.1, <2",
+                "scipy>=1.14.1, <2",
+                "matplotlib>=3.9.2, <4",
+                "databricks-feature-engineering==0.6",         # Fixed version (v 0.0.10)
+                "databricks-feature-lookup==1.2.0",            # Fixed version (v 0.0.10)
+                "imbalanced-learn>=0.11.0, <1",                # Added imbalanced-learn
+                "loguru>=0.6.0, <1",                           # Added loguru
+                "pre-commit>=2.20.0, <3",                      # Added pre-commit
+                "pydantic==2.9.0, <3",                         # Added pydantic (v 0.0.8)
+                "databricks-sdk==0.32.0",                      # Fixed version(v 0.0.10)
+                ]
+
+[project.optional-dependencies]
+dev = ["databricks-connect>=15.4.1, <16",
+       "ipykernel>=6.29.5, <7",
+       "pip>=24.2",
+       "pytest>=8.1.1, <9",                                    # Add pytest
+       "ruff>=0.2.0, <1" ,                                     # Add ruff (version = "0.0.4")
+       "python-dotenv>=1.0.0, <2"                              # Add python-dotenv (version = "0.0.5")
+]
+
+# Build system configuration
+[build-system]                                                 # Adding Hatchling (v 0.0.7)
+requires = ["hatchling>=1.23.0"]
+build-backend = "hatchling.build"
+
+# # Hatch configuration for src layout: allow imports without "src"
+[tool.hatch.build]
+packages = ["src"]
+
+# Wheel build configuration
+[tool.hatch.build.targets.wheel]
+packages = ["src/credit_default"]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "F",  # pyflakes rules
+    "E",  # pycodestyle error rules
+    "W",  # pycodestyle warning rules
+    "B",  # flake8-bugbear rules
+    "I",  # isort rules
+]
+ignore = [
+    "E501",  # line-too-long
+]
+
+[tool.ruff.format]
+indent-style = "space"
