@@ -12,7 +12,6 @@ from src.credit_default.utils import load_config
 load_dotenv()
 FILEPATH = os.environ["FILEPATH"]
 
-
 @pytest.fixture
 def config():
     """Load configuration from the YAML file for testing."""
