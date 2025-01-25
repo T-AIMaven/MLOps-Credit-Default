@@ -15,6 +15,7 @@ from credit_default.data_cleaning_spark import DataCleaning
 from credit_default.utils import Config
 
 # Load environment variables
+
 load_dotenv()
 
 # spark = SparkSession.builder.getOrCreate()
