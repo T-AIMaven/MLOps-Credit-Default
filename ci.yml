@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        id: setup-python                         # Add an ID for reference
+        with:
+          python-version-file: "pyproject.toml"  # Automatically installs the correct Python version
+                                                 # Specified in requires-python
+      - name: Create virtual environment         # Uses the previous Python version
+        run: |
+          uv venv -p ${{ steps.setup-python.outputs.python-version }} .venv
+
+      - name: Activate virtual environment and install dependencies
+        run: |
+          source .venv/bin/activate
+          uv sync --all-extras
+
+      - name: Load environment variables
+        run: |
+          echo "FILEPATH=data/data.csv" >> .env
+          echo "CONFIG=project_config.yml" >> .env
+          echo "CLEANING_LOGS=logs/data_cleaning.log" >> .env
+          echo "PREPROCESSING_LOGS=logs/data_preprocessing.log" >> .env
+          echo "PIPELINE_LOGS=logs/pipeline.log" >> .env
+
+      - name: Run pre-commit checks
+        run: |
+          source .venv/bin/activate
+          pre-commit install
+          pre-commit run --all-files
